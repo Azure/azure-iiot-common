@@ -26,10 +26,14 @@ namespace Microsoft.Azure.IIoT.Hub.Client {
         /// <param name="logger"></param>
         protected IoTHubHttpClientBase(IHttpClient httpClient,
             IIoTHubConfig config, ILogger logger) {
-            _httpClient = httpClient;
-            _logger = logger;
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            if (config == null) {
+                _logger.Error("Bad config", () => { });
+                throw new ArgumentNullException(nameof(config));
+            }
             if (string.IsNullOrEmpty(config.IoTHubConnString)) {
-                throw new ArgumentException(nameof(config));
+                throw new ArgumentException(nameof(config.IoTHubConnString));
             }
             _resourceId = config.IoTHubResourceId;
             _hubConnectionString = ConnectionString.Parse(config.IoTHubConnString);
