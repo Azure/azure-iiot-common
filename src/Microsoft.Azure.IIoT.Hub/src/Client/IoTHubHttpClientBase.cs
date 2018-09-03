@@ -29,7 +29,6 @@ namespace Microsoft.Azure.IIoT.Hub.Client {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             if (config == null) {
-                _logger.Error("Bad config", () => { });
                 throw new ArgumentNullException(nameof(config));
             }
             if (string.IsNullOrEmpty(config.IoTHubConnString)) {

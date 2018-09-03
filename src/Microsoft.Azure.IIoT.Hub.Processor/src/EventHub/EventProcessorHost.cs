@@ -127,7 +127,7 @@ namespace Microsoft.Azure.IIoT.Hub.Processor.EventHub {
         /// Helper to get connection string and validate configuration
         /// </summary>
         private string GetEventHubConnectionString() {
-            if (_config.EventHubConnString != null) {
+            if (!string.IsNullOrEmpty(_config.EventHubConnString)) {
                 try {
                     var csb = new EventHubsConnectionStringBuilder(
                         _config.EventHubConnString);
@@ -141,7 +141,8 @@ namespace Microsoft.Azure.IIoT.Hub.Processor.EventHub {
                 }
                 catch {
                     throw new InvalidConfigurationException(
-                        "Invalid Event hub connection string configured.");
+                        "Invalid Event hub connection string " +
+                        $"{_config.EventHubConnString} configured.");
                 }
             }
             throw new InvalidConfigurationException(
