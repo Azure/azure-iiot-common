@@ -104,14 +104,14 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         /// Start service
         /// </summary>
         /// <returns></returns>
-        public async Task StartAsync(string type, string siteId) {
+        public async Task StartAsync(string type, string siteId, string serviceInfo) {
             if (_client == null) {
                 try {
                     await _lock.WaitAsync();
                     if (_client == null) {
                         // Create client
                         _logger.Debug("Starting Edge Host...", () => { });
-                        _client = await _factory.CreateAsync();
+                        _client = await _factory.CreateAsync(serviceInfo);
                         DeviceId = _factory.DeviceId;
                         ModuleId = _factory.ModuleId;
 

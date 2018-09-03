@@ -18,11 +18,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
     public interface IClient : IDisposable {
 
         /// <summary>
-        /// Update product info
-        /// </summary>
-        string ProductInfo { get; set; }
-
-        /// <summary>
         /// Sends an event to device hub
         /// </summary>
         /// <returns>The message containing the event</returns>

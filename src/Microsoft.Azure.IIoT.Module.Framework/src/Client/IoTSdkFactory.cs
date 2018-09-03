@@ -107,10 +107,11 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
         }
 
         /// <summary>
-        /// Create and open a DeviceClient using the connection string
+        /// Create and open a using the connection string
         /// </summary>
+        /// <param name="product"></param>
         /// <returns>Device client</returns>
-        public async Task<IClient> CreateAsync() {
+        public async Task<IClient> CreateAsync(string product) {
 
             // Configure transport settings
             var transportSettings = new List<ITransportSettings>();
@@ -145,24 +146,25 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             if (transportSettings.Count != 0) {
                 return await Try.Options(transportSettings
                     .Select<ITransportSettings, Func<Task<IClient>>>(t =>
-                         () => CreateAdapterAsync(t))
+                         () => CreateAdapterAsync(product, t))
                     .ToArray());
             }
-            return await CreateAdapterAsync();
+            return await CreateAdapterAsync(product);
         }
 
         /// <summary>
         /// Create client
         /// </summary>
+        /// <param name="product"></param>
         /// <param name="transportSetting"></param>
         /// <returns></returns>
-        private Task<IClient> CreateAdapterAsync(
+        private Task<IClient> CreateAdapterAsync(string product,
             ITransportSettings transportSetting = null) {
             if (_cs != null && string.IsNullOrEmpty(_cs.ModuleId)) {
-                return DeviceClientAdapter.CreateAsync(_cs, transportSetting,
+                return DeviceClientAdapter.CreateAsync(product, _cs, transportSetting,
                     _timeout, RetryPolicy, _logger);
             }
-            return ModuleClientAdapter.CreateAsync(_cs, transportSetting,
+            return ModuleClientAdapter.CreateAsync(product, _cs, transportSetting,
                 _timeout, RetryPolicy, _logger);
         }
 
@@ -188,7 +190,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             /// <param name="timeout"></param>
             /// <param name="logger"></param>
             /// <returns></returns>
-            public static async Task<IClient> CreateAsync(
+            public static async Task<IClient> CreateAsync(string product,
                 IotHubConnectionStringBuilder cs, ITransportSettings transportSetting,
                 TimeSpan timeout, IRetryPolicy retry, ILogger logger) {
 
@@ -203,14 +205,9 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     client.SetRetryPolicy(retry);
                 }
                 client.DiagnosticSamplingPercentage = 5;
+                client.ProductInfo = product;
                 await client.OpenAsync();
                 return new ModuleClientAdapter(client);
-            }
-
-            /// <inheritdoc />
-            public string ProductInfo {
-                get => _client.ProductInfo;
-                set => _client.ProductInfo = value;
             }
 
             /// <inheritdoc />
@@ -314,12 +311,13 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             /// <summary>
             /// Factory
             /// </summary>
+            /// <param name="product"></param>
             /// <param name="cs"></param>
             /// <param name="transportSetting"></param>
             /// <param name="timeout"></param>
             /// <param name="logger"></param>
             /// <returns></returns>
-            public static async Task<IClient> CreateAsync(
+            public static async Task<IClient> CreateAsync(string product,
                 IotHubConnectionStringBuilder cs, ITransportSettings transportSetting,
                 TimeSpan timeout, IRetryPolicy retry, ILogger logger) {
                 var client = Create(cs, transportSetting);
@@ -332,14 +330,9 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     client.SetRetryPolicy(retry);
                 }
                 client.DiagnosticSamplingPercentage = 5;
+                client.ProductInfo = product;
                 await client.OpenAsync();
                 return new DeviceClientAdapter(client);
-            }
-
-            /// <inheritdoc />
-            public string ProductInfo {
-                get => _client.ProductInfo;
-                set => _client.ProductInfo = value;
             }
 
             /// <inheritdoc />
