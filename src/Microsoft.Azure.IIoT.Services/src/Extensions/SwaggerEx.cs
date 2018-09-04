@@ -112,7 +112,7 @@ namespace Swashbuckle.AspNetCore.Swagger {
                         });
                 }
                 options.RoutePrefix = "";
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", info.Version);
+                options.SwaggerEndpoint("v1/swagger.json", info.Version);
             });
         }
 
@@ -152,7 +152,7 @@ namespace Swashbuckle.AspNetCore.Swagger {
             /// <param name="operation"></param>
             /// <param name="context"></param>
             public void Apply(Operation operation, OperationFilterContext context) {
-                var descriptor = context.ApiDescription.ActionDescriptor as 
+                var descriptor = context.ApiDescription.ActionDescriptor as
                     ControllerActionDescriptor;
                 var claims = descriptor.GetRequiredPolicyGlaims(_options.Value);
                 if (claims.Any()) {
