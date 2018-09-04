@@ -39,7 +39,7 @@ namespace Swashbuckle.AspNetCore.Swagger {
 
             // Generate swagger documentation
             services.AddSwaggerGen(options => {
-                // Add info
+                // Generate doc for version
                 options.SwaggerDoc(info.Version, info);
 
                 // Add annotations
@@ -95,6 +95,7 @@ namespace Swashbuckle.AspNetCore.Swagger {
             app.UseSwagger(options => {
                 options.PreSerializeFilters.Add((doc, request) =>
                     doc.Host = request.Host.Value);
+                options.RouteTemplate = "{documentName}/swagger.json";
             });
             if (!config.UIEnabled) {
                 return;
