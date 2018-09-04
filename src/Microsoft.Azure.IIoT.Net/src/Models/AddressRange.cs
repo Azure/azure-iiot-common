@@ -38,7 +38,7 @@ namespace Microsoft.Azure.IIoT.Net.Models {
         /// <param name="high"></param>
         /// <param name="nic"></param>
         public AddressRange(uint low, uint high,
-            string nic = "unknown") {
+            string nic = "custom range") {
             Nic = nic;
             Low = _cur = low > high ? high : low;
             High = high < low ? low : high;
@@ -51,7 +51,7 @@ namespace Microsoft.Azure.IIoT.Net.Models {
         /// <param name="address"></param>
         /// <param name="suffix"></param>
         public AddressRange(IPAddress address, int suffix,
-            string nic = "unknown") {
+            string nic = "custom range") {
             if (address == null) {
                 throw new ArgumentNullException(nameof(address));
             }

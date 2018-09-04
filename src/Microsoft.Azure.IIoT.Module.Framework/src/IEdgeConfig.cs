@@ -14,7 +14,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
         /// <summary>
         /// Edge Hub connection string
         /// </summary>
-        string HubConnectionString { get; }
+        string EdgeHubConnectionString { get; }
 
         /// <summary>
         /// Bypass cert validation with hub

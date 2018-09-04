@@ -45,8 +45,8 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             var moduleId = Environment.GetEnvironmentVariable("IOTEDGE_MODULEID");
             var ehubHost = Environment.GetEnvironmentVariable("IOTEDGE_GATEWAYHOSTNAME");
             try {
-                if (!string.IsNullOrEmpty(config.HubConnectionString)) {
-                    _cs = IotHubConnectionStringBuilder.Create(config.HubConnectionString);
+                if (!string.IsNullOrEmpty(config.EdgeHubConnectionString)) {
+                    _cs = IotHubConnectionStringBuilder.Create(config.EdgeHubConnectionString);
                     if (string.IsNullOrEmpty(_cs.DeviceId)) {
                         throw new InvalidConfigurationException(
                             "Connection string is not a device or module connection string.");
