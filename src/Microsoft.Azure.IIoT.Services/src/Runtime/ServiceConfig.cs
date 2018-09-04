@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------
+// ------------------------------------------------------------
 //  Copyright (c) Microsoft Corporation.  All rights reserved.
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
@@ -14,18 +14,7 @@ namespace Microsoft.Azure.IIoT.Services.Runtime {
 
     /// <summary>
     /// Web service configuration - wraps a configuration root as well
-    /// as reads simple configuration from the following environment
-    /// variables:
-    /// - IIOT_CORS_WHITELIST (optional, defaults to *)
-    /// - IIOT_AUTH_TRUSTED_ISSUE (optional, defaults to 
-    ///     "https://login.windows...")
-    /// - IIOT_AUTH_APP_ID (set to registered application id)
-    /// - IIOT_AUTH_APP_KEY (if not provided, auth will be off)
-    /// - IIOT_AUTH_CLIENT_ID (set to registered client application
-    ///     id)
-    /// - IIOT_AUTH_CLIENT_KEY (if not provided, but auth is on, 
-    ///     swagger will be off)
-    /// - IIOT_AAD_TENANT_ID (if not set, "common" tenant will be used)
+    /// as reads simple configuration from environment.
     /// </summary>
     public class ServiceConfig : ConfigBase, IAuthConfig,
         ICorsConfig, IClientConfig, ISwaggerConfig {
@@ -86,7 +75,7 @@ namespace Microsoft.Azure.IIoT.Services.Runtime {
         private const string kSwagger_AppIdKey = kSwaggerKey + "AppId";
         private const string kSwagger_AppSecretKey = kSwaggerKey + "AppSecret";
         /// <summary>Enabled</summary>
-        public bool UIEnabled => GetBool(kSwagger_EnabledKey, 
+        public bool UIEnabled => GetBool(kSwagger_EnabledKey,
             !AuthRequired || !string.IsNullOrEmpty(SwaggerClientSecret));
         /// <summary>Auth enabled</summary>
         public bool WithAuth =>
@@ -104,7 +93,7 @@ namespace Microsoft.Azure.IIoT.Services.Runtime {
         /// Configuration constructor
         /// </summary>
         /// <param name="configuration"></param>
-        public ServiceConfig(string processId, string serviceId, 
+        public ServiceConfig(string processId, string serviceId,
             IConfigurationRoot configuration) :
             base(processId, configuration) {
             ServiceId = serviceId.ToUpperInvariant();
