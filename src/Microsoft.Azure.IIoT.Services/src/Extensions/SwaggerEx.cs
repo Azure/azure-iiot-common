@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------
+// ------------------------------------------------------------
 //  Copyright (c) Microsoft Corporation.  All rights reserved.
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
@@ -41,6 +41,9 @@ namespace Swashbuckle.AspNetCore.Swagger {
             services.AddSwaggerGen(options => {
                 // Add info
                 options.SwaggerDoc(info.Version, info);
+
+                // Add annotations
+                options.EnableAnnotations();
 
                 // Add help
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
