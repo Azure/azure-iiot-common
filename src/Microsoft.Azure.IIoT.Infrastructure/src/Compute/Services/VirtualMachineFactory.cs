@@ -69,7 +69,7 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
 
             // TODO: Create a root user/pw to access vm using ssh.
             var user = VirtualMachineResource.kDefaultUser;
-            var pw = VirtualMachineResource.kDefaultPassword;
+            var pw = user.ToSha1Hash();
 
             return new VirtualMachineResource(this, resourceGroup, vm,
                 user, pw, _logger);
@@ -90,7 +90,7 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
 
             // TODO: Create a root user/pw to access vm using ssh.
             var user = VirtualMachineResource.kDefaultUser;
-            var pw = VirtualMachineResource.kDefaultPassword;
+            var pw = user.ToSha1Hash();
 
             if (image == null) {
                 image = KnownImages.Ubuntu_16_04_lts;
@@ -209,7 +209,6 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
         private class VirtualMachineResource : IVirtualMachineResource {
 
             public const string kDefaultUser = "sshuser";
-            public const string kDefaultPassword = "Passw0rdPassw0rd";
 
             /// <summary>
             /// Create iot hub
