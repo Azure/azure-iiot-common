@@ -63,9 +63,9 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             catch (Exception e) {
                 var ex = new InvalidConfigurationException(
                     "The host configuration is incomplete and is missing a " +
-                    "connection string for Azure iotedge or IoTHub. " +
-                    "You either have to run the host under the control of the " +
-                    "IoTEdgeHub, or manually set the 'EdgeHubConnectionString' " +
+                    "connection string for Azure IoTEdge or IoTHub. " +
+                    "You either have to run the host under the control of " +
+                    "EdgeAgent, or manually set the 'EdgeHubConnectionString' " +
                     "environment variable or configure the connection string " +
                     "value in your 'appsettings.json' configuration file.", e);
                 _logger.Error("Bad configuration", () => ex);
@@ -107,7 +107,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
         }
 
         /// <summary>
-        /// Create and open a using the connection string
+        /// Create and open client using the connection string
         /// </summary>
         /// <param name="product"></param>
         /// <returns>Device client</returns>

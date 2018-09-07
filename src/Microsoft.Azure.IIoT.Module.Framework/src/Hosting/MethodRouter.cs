@@ -188,13 +188,8 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
             public Task<MethodResponse> InvokeAsync(MethodRequest request) {
                 object[] inputs;
                 object returned;
-                var contentType = "json";
                 try {
                     if (_methodParams.Length == 1) {
-
-                        // TODO: parse content type as _bson, _json, _mpack, etc.
-                        // and use correct decoder/encoder here.
-
                         var data = JsonConvertEx.DeserializeObject(request.DataAsJson,
                             _methodParams[0].ParameterType);
                         inputs = new[] { data };
@@ -218,10 +213,8 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                     });
                     returned = Task.FromException(e);
                 }
-
-                // TODO: Pass content type
                 return (Task<MethodResponse>)_resultConverter.Invoke(this, new[] {
-                    returned, contentType
+                    returned
                 });
             }
 
@@ -231,16 +224,13 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
             /// <typeparam name="T"></typeparam>
             /// <param name="task"></param>
             /// <returns></returns>
-            public Task<MethodResponse> MethodResponseAsContinuation<T>(Task<T> task,
-                string contentType) {
+            public Task<MethodResponse> MethodResponseAsContinuation<T>(Task<T> task) {
                 const int kMaxMessageSize = 128 * 1024;
                 return task.ContinueWith(tr => {
                     string response = null;
                     var status = 429;
                     if (!tr.IsFaulted) {
                         status = 200;
-                        // TODO: Use correct content type
-
                         response = JsonConvertEx.SerializeObject(tr.Result);
                     }
                     else {
@@ -253,8 +243,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                         var ex = new MessageTooLargeException("Method call error",
                             result.Length, kMaxMessageSize);
                         _logger.Error(
-                            $"Result ({contentType}) too large => {result.Length}",
-                            () => ex);
+                            $"Result (Json too large => {result.Length}", () => ex);
                         result = Encoding.UTF8.GetBytes(_ef.Filter(ex, out status));
                         return new MethodResponse(result, status);
                     }
