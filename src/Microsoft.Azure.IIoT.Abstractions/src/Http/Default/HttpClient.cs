@@ -35,6 +35,8 @@ namespace Microsoft.Azure.IIoT.Http.Default {
         public HttpClient(IHttpClientFactory factory, ILogger logger) {
             _factory = factory ?? new HttpClientFactory(null, logger);
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         /// <summary>
