@@ -33,7 +33,7 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         }
 
         /// <summary>
-        /// Add edge agent configuration model as modules content
+        /// Add iotedge agent configuration model as modules content
         /// </summary>
         /// <param name="config"></param>
         /// <param name="model"></param>
@@ -41,7 +41,7 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
             EdgeAgentConfigurationModel model) => config.AddModulesContent("$edgeAgent", model);
 
         /// <summary>
-        /// Add edge hub configuration model as modules content
+        /// Add iotedge hub configuration model as modules content
         /// </summary>
         /// <param name="config"></param>
         /// <param name="model"></param>
@@ -73,7 +73,7 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         }
 
         /// <summary>
-        /// Get edge agent configuration model from modules content
+        /// Get iotedge agent configuration model from modules content
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
             config.GetModulesContent<EdgeAgentConfigurationModel>("$edgeAgent");
 
         /// <summary>
-        /// Get edge hub configuration model from modules content
+        /// Get iotedge hub configuration model from modules content
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>

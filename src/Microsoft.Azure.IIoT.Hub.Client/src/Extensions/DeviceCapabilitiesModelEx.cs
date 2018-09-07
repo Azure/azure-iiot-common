@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------
+// ------------------------------------------------------------
 //  Copyright (c) Microsoft Corporation.  All rights reserved.
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <returns></returns>
         public static DeviceCapabilities ToCapabilities(this DeviceCapabilitiesModel model) =>
             new DeviceCapabilities {
-                IotEdge = model.IoTEdge ?? false
+                iotedge = model.iotedge ?? false
             };
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <returns></returns>
         public static DeviceCapabilitiesModel ToModel(this DeviceCapabilities capabilities) {
             return new DeviceCapabilitiesModel {
-                IoTEdge = capabilities.IotEdge
+                iotedge = capabilities.iotedge
             };
         }
     }

@@ -19,7 +19,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
     using System.Threading;
 
     /// <summary>
-    /// Create clients from device sdk
+    /// Injectable factory that creates clients from device sdk
     /// </summary>
     public class IoTSdkFactory : IClientFactory {
 
@@ -33,14 +33,14 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
         public IRetryPolicy RetryPolicy { get; set; }
 
         /// <summary>
-        /// Create edge service module
+        /// Create sdk factory
         /// </summary>
         /// <param name="config"></param>
         /// <param name="logger"></param>
-        public IoTSdkFactory(IEdgeConfig config, ILogger logger) {
+        public IoTSdkFactory(IModuleConfig config, ILogger logger) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            // The Edge runtime injects this as an environment variable
+            // The runtime injects this as an environment variable
             var deviceId = Environment.GetEnvironmentVariable("IOTEDGE_DEVICEID");
             var moduleId = Environment.GetEnvironmentVariable("IOTEDGE_MODULEID");
             var ehubHost = Environment.GetEnvironmentVariable("IOTEDGE_GATEWAYHOSTNAME");
@@ -63,9 +63,9 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             catch (Exception e) {
                 var ex = new InvalidConfigurationException(
                     "The host configuration is incomplete and is missing a " +
-                    "connection string for Azure IoT Edge or IoT Hub. " +
+                    "connection string for Azure iotedge or IoTHub. " +
                     "You either have to run the host under the control of the " +
-                    "edge hub, or manually set the 'EdgeHubConnectionString' " +
+                    "IoTEdgeHub, or manually set the 'EdgeHubConnectionString' " +
                     "environment variable or configure the connection string " +
                     "value in your 'appsettings.json' configuration file.", e);
                 _logger.Error("Bad configuration", () => ex);
@@ -89,7 +89,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             }
             else if (!string.IsNullOrEmpty(ehubHost) || !string.IsNullOrEmpty(moduleId)) {
                 if (ehubHost != null) {
-                    // Running in edge context - can only use mqtt over tcp at this point
+                    // Running in iotedged context - can only use mqtt over tcp at this point
                     _transport = TransportOption.MqttOverTcp;
                 }
                 else {
@@ -418,7 +418,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
 
         /// <summary>
         /// Add certificate in local cert store for use by client for secure connection
-        /// to IoT Edge runtime
+        /// to iotedge runtime
         /// </summary>
         private void InstallCert(string certPath) {
             if (!File.Exists(certPath)) {

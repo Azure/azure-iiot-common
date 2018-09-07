@@ -9,7 +9,7 @@ namespace Microsoft.Azure.IIoT.Module.Deployment {
     public interface IEdgeDeploymentFactory {
 
         /// <summary>
-        /// Create edge deployment for selected edge device.
+        /// Create deployment for selected iotedge device.
         /// </summary>
         /// <param name="deviceId"></param>
         /// <returns></returns>

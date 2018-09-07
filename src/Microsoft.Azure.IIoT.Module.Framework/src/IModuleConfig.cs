@@ -4,15 +4,14 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Module.Framework.Client {
-    using System;
 
     /// <summary>
-    /// Edge configuration
+    /// Module configuration
     /// </summary>
-    public interface IEdgeConfig {
+    public interface IModuleConfig {
 
         /// <summary>
-        /// Edge Hub connection string
+        /// IoTEdgeHub connection string
         /// </summary>
         string EdgeHubConnectionString { get; }
 
