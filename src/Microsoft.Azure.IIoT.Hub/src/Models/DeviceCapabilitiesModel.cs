@@ -13,6 +13,6 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// </summary>
         [JsonProperty(PropertyName = "iotedge",
             NullValueHandling = NullValueHandling.Ignore)]
-        public bool? iotedge { get; set; }
+        public bool? IotEdge { get; set; }
     }
 }

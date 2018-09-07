@@ -15,7 +15,7 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <returns></returns>
         public static DeviceCapabilities ToCapabilities(this DeviceCapabilitiesModel model) =>
             new DeviceCapabilities {
-                iotedge = model.iotedge ?? false
+                IotEdge = model.IotEdge ?? false
             };
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <returns></returns>
         public static DeviceCapabilitiesModel ToModel(this DeviceCapabilities capabilities) {
             return new DeviceCapabilitiesModel {
-                iotedge = capabilities.iotedge
+                IotEdge = capabilities.IotEdge
             };
         }
     }
