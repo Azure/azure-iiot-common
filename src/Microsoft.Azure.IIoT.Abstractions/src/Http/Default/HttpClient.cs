@@ -43,6 +43,7 @@ namespace Microsoft.Azure.IIoT.Http.Default {
         /// Create new request
         /// </summary>
         /// <param name="uri"></param>
+        /// <param name="resourceId"></param>
         /// <returns></returns>
         public IHttpRequest NewRequest(Uri uri, string resourceId) =>
             new HttpRequest(uri, resourceId);

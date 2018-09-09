@@ -173,6 +173,7 @@ namespace Microsoft.Azure.IIoT.Net.Scanner {
             /// Get next endpoint
             /// </summary>
             /// <param name="ep"></param>
+            /// <param name="timeout"></param>
             /// <returns></returns>
             protected override bool Next(out IPEndPoint ep, out int timeout) {
                 if (!_scanner.Next(out ep)) {

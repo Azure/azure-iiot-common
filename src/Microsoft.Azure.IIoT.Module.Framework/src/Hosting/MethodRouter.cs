@@ -86,7 +86,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                 }
                 name = name.ToLowerInvariant();
                 if (version != null) {
-                    name = name + ("_v" + version.Value);
+                    name = name + "_v" + version.Value;
                 }
                 name = name.ToLowerInvariant();
                 if (!_calltable.TryGetValue(name, out var invoker)) {
@@ -167,6 +167,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
             /// </summary>
             /// <param name="controller"></param>
             /// <param name="controllerMethod"></param>
+            /// <param name="logger"></param>
             public MethodInvoker(object controller, MethodInfo controllerMethod, ILogger logger) {
                 _logger = logger;
                 _controller = controller;

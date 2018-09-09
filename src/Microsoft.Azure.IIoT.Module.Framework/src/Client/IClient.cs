@@ -139,5 +139,9 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
         Task CloseAsync();
     }
 
+    /// <summary>
+    /// Stream callback definition
+    /// </summary>
+    /// <param name="userContext"></param>
     public delegate void StreamCallback(object userContext);
 }

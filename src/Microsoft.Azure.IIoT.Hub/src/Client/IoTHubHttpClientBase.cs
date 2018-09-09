@@ -93,9 +93,13 @@ namespace Microsoft.Azure.IIoT.Hub.Client {
         const string kApiVersion = "2018-06-30";
         const string kClientId = "OpcTwin";
 
+        /// <summary>Hub connection string to use</summary>
         protected readonly ConnectionString _hubConnectionString;
+        /// <summary>resource id to use in derived class</summary>
         protected readonly string _resourceId;
+        /// <summary>Http client to use in derived class</summary>
         protected readonly IHttpClient _httpClient;
+        /// <summary>Logger to use in derived class</summary>
         protected readonly ILogger _logger;
     }
 }

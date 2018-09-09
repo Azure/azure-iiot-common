@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------
+// ------------------------------------------------------------
 //  Copyright (c) Microsoft Corporation.  All rights reserved.
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
@@ -59,6 +59,7 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
         /// <summary>
         /// Write message to console
         /// </summary>
+        /// <param name="enabled"></param>
         /// <param name="level"></param>
         /// <param name="message"></param>
         private void Write(bool enabled, string level, Func<string> message) {
@@ -67,6 +68,7 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
             }
         }
 
+        /// <summary>Enabled min log level</summary>
         protected readonly LogLevel _logLevel;
     }
 }

@@ -49,6 +49,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         /// Create module host
         /// </summary>
         /// <param name="factory"></param>
+        /// <param name="settings"></param>
         /// <param name="logger"></param>
         /// <param name="router"></param>
         public ModuleHost(IMethodRouter router, ISettingsRouter settings, IClientFactory factory,
@@ -445,6 +446,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         /// Process default settings
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="processed"></param>
         /// <param name="value"></param>
         /// <returns></returns>
         private bool ProcessEdgeHostSettings(string key, dynamic value,

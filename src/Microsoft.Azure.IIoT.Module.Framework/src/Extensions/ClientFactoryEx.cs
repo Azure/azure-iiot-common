@@ -6,6 +6,9 @@
 namespace Microsoft.Azure.IIoT.Module.Framework.Client {
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Factory extensions
+    /// </summary>
     public static class ClientFactoryEx {
 
         /// <summary>
@@ -13,6 +16,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
         /// </summary>
         /// <returns></returns>
         public static Task<IClient> CreateAsync(this IClientFactory factory) =>
-            factory.CreateAsync("IIoTModule");
+            factory.CreateAsync("Module");
     }
 }

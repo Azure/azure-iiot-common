@@ -27,6 +27,7 @@ namespace Swashbuckle.AspNetCore.Swagger {
         /// </summary>
         /// <param name="services"></param>
         /// <param name="config"></param>
+        /// <param name="info"></param>
         public static void AddSwagger(this IServiceCollection services,
             ISwaggerConfig config, Info info) {
 
@@ -81,6 +82,8 @@ namespace Swashbuckle.AspNetCore.Swagger {
         /// Use swagger in application
         /// </summary>
         /// <param name="app"></param>
+        /// <param name="config"></param>
+        /// <param name="info"></param>
         public static void UseSwagger(this IApplicationBuilder app,
             ISwaggerConfig config, Info info) {
 

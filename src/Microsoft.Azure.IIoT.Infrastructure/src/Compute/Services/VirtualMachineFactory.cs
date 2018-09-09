@@ -24,12 +24,16 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
     using System.Threading;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Virtual machine factory implementation
+    /// </summary>
     public class VirtualMachineFactory : BaseFactory, IVirtualMachineFactory {
 
         /// <summary>
         /// Create virtual machine factory
         /// </summary>
         /// <param name="creds"></param>
+        /// <param name="selector"></param>
         /// <param name="logger"></param>
         public VirtualMachineFactory(ICredentialProvider creds,
             ISubscriptionInfoSelector selector, ILogger logger) :
@@ -40,6 +44,8 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
         /// Create virtual machine factory
         /// </summary>
         /// <param name="creds"></param>
+        /// <param name="selector"></param>
+        /// <param name="shell"></param>
         /// <param name="logger"></param>
         public VirtualMachineFactory(ICredentialProvider creds,
             ISubscriptionInfoSelector selector, IShellFactory shell,
@@ -211,13 +217,14 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
             public const string kDefaultUser = "sshuser";
 
             /// <summary>
-            /// Create iot hub
+            /// Create resource
             /// </summary>
             /// <param name="manager"></param>
             /// <param name="resourceGroup"></param>
             /// <param name="vm"></param>
             /// <param name="user"></param>
             /// <param name="password"></param>
+            /// <param name="logger"></param>
             public VirtualMachineResource(VirtualMachineFactory manager,
                 IResourceGroupResource resourceGroup, IVirtualMachine vm,
                 string user, string password, ILogger logger) {
@@ -463,11 +470,11 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
         private static bool Satisfies(ResourceSkuCapabilities capabilitiy) {
             switch (capabilitiy.Name) {
                 case "OSVhdSizeMB":
-                    return (double.Parse(capabilitiy.Value) >= 100 * 1024);
+                    return double.Parse(capabilitiy.Value) >= 100 * 1024;
                 case "vCPUs":
-                    return (double.Parse(capabilitiy.Value) >= 4);
+                    return double.Parse(capabilitiy.Value) >= 4;
                 case "MemoryGB":
-                    return (double.Parse(capabilitiy.Value) >= 4);
+                    return double.Parse(capabilitiy.Value) >= 4;
                 case "LowPriorityCapable":
                 case "MaxDataDiskCount":
                 case "MaxResourceVolumeMB":

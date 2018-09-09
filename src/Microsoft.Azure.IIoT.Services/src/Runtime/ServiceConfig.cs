@@ -86,12 +86,14 @@ namespace Microsoft.Azure.IIoT.Services.Runtime {
         /// <summary>Application key</summary>
         public string SwaggerClientSecret => GetString(kSwagger_AppSecretKey, GetString(
             ServiceId + "_CLIENT_KEY", GetString("IIOT_AUTH_CLIENT_KEY"))).Trim();
-
+        /// <summary>Service identifier</summary>
         public string ServiceId { get; }
 
         /// <summary>
         /// Configuration constructor
         /// </summary>
+        /// <param name="processId"></param>
+        /// <param name="serviceId"></param>
         /// <param name="configuration"></param>
         public ServiceConfig(string processId, string serviceId,
             IConfigurationRoot configuration) :

@@ -10,6 +10,9 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Configuration content model extension
+    /// </summary>
     public static class ConfigurationContentModelEx {
 
         /// <summary>

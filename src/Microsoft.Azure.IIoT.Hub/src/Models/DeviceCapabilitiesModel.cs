@@ -6,6 +6,9 @@
 namespace Microsoft.Azure.IIoT.Hub.Models {
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Capabilities
+    /// </summary>
     public class DeviceCapabilitiesModel {
 
         /// <summary>

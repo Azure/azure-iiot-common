@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------
+// ------------------------------------------------------------
 //  Copyright (c) Microsoft Corporation.  All rights reserved.
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Microsoft.Azure.IIoT.Utils {
 #if !NET46
     using Microsoft.Extensions.Configuration;
 #else
-    // Adapter since there is no other good place to put below base 
+    // Adapter since there is no other good place to put below base
     public interface IConfigurationRoot {
         string GetValue(string key, string defaultValue);
     }
@@ -35,6 +35,7 @@ namespace Microsoft.Azure.IIoT.Utils {
         /// <summary>
         /// Configuration constructor
         /// </summary>
+        /// <param name="processId"></param>
         /// <param name="configuration"></param>
         protected ConfigBase(string processId, IConfigurationRoot configuration) {
             Configuration = configuration;
@@ -104,6 +105,7 @@ namespace Microsoft.Azure.IIoT.Utils {
         /// Get time span
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
         /// <returns></returns>
         protected TimeSpan GetDuration(string key, TimeSpan? defaultValue = null) {
             if (!TimeSpan.TryParse(GetString(key), out var result)) {

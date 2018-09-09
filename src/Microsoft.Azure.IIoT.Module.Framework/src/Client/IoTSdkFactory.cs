@@ -185,9 +185,11 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             /// <summary>
             /// Factory
             /// </summary>
+            /// <param name="product"></param>
             /// <param name="cs"></param>
             /// <param name="transportSetting"></param>
             /// <param name="timeout"></param>
+            /// <param name="retry"></param>
             /// <param name="logger"></param>
             /// <returns></returns>
             public static async Task<IClient> CreateAsync(string product,
@@ -315,6 +317,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             /// <param name="cs"></param>
             /// <param name="transportSetting"></param>
             /// <param name="timeout"></param>
+            /// <param name="retry"></param>
             /// <param name="logger"></param>
             /// <returns></returns>
             public static async Task<IClient> CreateAsync(string product,

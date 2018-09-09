@@ -6,6 +6,9 @@
 namespace Microsoft.Azure.IIoT.Hub.Models {
     using Microsoft.Azure.Devices.Shared;
 
+    /// <summary>
+    /// Device capabilities model extensions
+    /// </summary>
     public static class DeviceCapabilitiesModelEx {
 
         /// <summary>
