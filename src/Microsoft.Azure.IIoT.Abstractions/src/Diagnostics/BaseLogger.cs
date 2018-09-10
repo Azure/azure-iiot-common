@@ -19,7 +19,7 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
         /// </summary>
         /// <param name="processId"></param>
         protected BaseLogger(string processId) {
-            _processId = processId;
+            _processId = processId ?? Guid.NewGuid().ToString();
         }
 
         /// <summary>

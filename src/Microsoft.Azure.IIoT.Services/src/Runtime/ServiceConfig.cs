@@ -7,8 +7,8 @@ namespace Microsoft.Azure.IIoT.Services.Runtime {
     using Microsoft.Azure.IIoT.Services.Swagger;
     using Microsoft.Azure.IIoT.Services.Auth;
     using Microsoft.Azure.IIoT.Services.Cors;
+    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Auth.Azure;
-    using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Extensions.Configuration;
     using System;
 
@@ -16,7 +16,7 @@ namespace Microsoft.Azure.IIoT.Services.Runtime {
     /// Web service configuration - wraps a configuration root as well
     /// as reads simple configuration from environment.
     /// </summary>
-    public class ServiceConfig : ConfigBase, IAuthConfig,
+    public class ServiceConfig : LogConfig, IAuthConfig,
         ICorsConfig, IClientConfig, ISwaggerConfig {
 
         /// <summary>

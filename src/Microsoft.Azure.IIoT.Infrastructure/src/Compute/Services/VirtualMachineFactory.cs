@@ -73,9 +73,8 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
                 return null;
             }
 
-            // TODO: Create a root user/pw to access vm using ssh.
             var user = VirtualMachineResource.kDefaultUser;
-            var pw = user.ToSha1Hash();
+            var pw = "Vm$" + name.ToSha1Hash().Substring(0, 3);
 
             return new VirtualMachineResource(this, resourceGroup, vm,
                 user, pw, _logger);
@@ -94,9 +93,8 @@ namespace Microsoft.Azure.IIoT.Infrastructure.Compute.Services {
             name = await client.VirtualMachines.SelectResourceNameAsync(resourceGroup.Name,
                 "vm", name);
 
-            // TODO: Create a root user/pw to access vm using ssh.
             var user = VirtualMachineResource.kDefaultUser;
-            var pw = user.ToSha1Hash();
+            var pw = "Vm$" + name.ToSha1Hash().Substring(0, 3); 
 
             if (image == null) {
                 image = KnownImages.Ubuntu_16_04_lts;

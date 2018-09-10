@@ -4,28 +4,15 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Utils {
-    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Exceptions;
     using System;
     using System.Collections.Generic;
-#if !NET46
     using Microsoft.Extensions.Configuration;
-#else
-    // Adapter since there is no other good place to put below base
-    public interface IConfigurationRoot {
-        string GetValue(string key, string defaultValue);
-    }
-#endif
 
     /// <summary>
     /// Configuration base helper class
     /// </summary>
     public abstract class ConfigBase {
-
-        /// <summary>
-        /// A configured logger
-        /// </summary>
-        public ILogger Logger { get; }
 
         /// <summary>
         /// Configuration
@@ -35,37 +22,15 @@ namespace Microsoft.Azure.IIoT.Utils {
         /// <summary>
         /// Configuration constructor
         /// </summary>
-        /// <param name="processId"></param>
         /// <param name="configuration"></param>
-        protected ConfigBase(string processId, IConfigurationRoot configuration) {
+        protected ConfigBase(IConfigurationRoot configuration) {
             Configuration = configuration;
-            Logger = new ConsoleLogger(processId,
-                GetLogLevel("Logging:LogLevel:Default", LogLevel.Debug));
-        }
 
-        /// <summary>
-        /// Get log level
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        private LogLevel GetLogLevel(string key, LogLevel defaultValue) {
-            var level = GetString(key);
-            if (!string.IsNullOrEmpty(level)) {
-                switch (level.ToLowerInvariant()) {
-                    case "Warning":
-                        return LogLevel.Warn;
-                    case "Trace":
-                    case "Debug":
-                        return LogLevel.Debug;
-                    case "Information":
-                        return LogLevel.Info;
-                    case "Error":
-                    case "Critical":
-                        return LogLevel.Error;
-                }
+            if (configuration == null) {
+                var builder = new ConfigurationBuilder();
+                builder.AddEnvironmentVariables();
+                configuration = builder.Build();
             }
-            return defaultValue;
         }
 
         /// <summary>
