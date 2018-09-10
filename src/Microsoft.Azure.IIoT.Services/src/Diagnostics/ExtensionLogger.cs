@@ -16,20 +16,31 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
         /// <summary>
         /// Create logger
         /// </summary>
-        /// <param name="logger"></param>
-        public ExtensionLogger(IAspLogger logger) :
-            this(logger, null) {
+        /// <param name="factory"></param>
+        public ExtensionLogger(ILoggerFactory factory) :
+            this(factory, null) {
         }
 
         /// <summary>
         /// Create logger
         /// </summary>
+        /// <param name="factory"></param>
         /// <param name="config"></param>
-        /// <param name="logger"></param>
-        public ExtensionLogger(IAspLogger logger, ILogConfig config) :
-            base(config?.ProcessId) {
-            _logger = logger ??
-                throw new ArgumentNullException(nameof(logger));
+        public ExtensionLogger(ILoggerFactory factory, ILogConfig config) :
+            this(config?.ProcessId ?? "log", factory) {
+        }
+
+        /// <summary>
+        /// Create logger
+        /// </summary>
+        /// <param name="factory"></param>
+        /// <param name="category"></param>
+        internal ExtensionLogger(string category, ILoggerFactory factory) :
+            base(category) {
+            if (factory == null) {
+                throw new ArgumentNullException(nameof(factory));
+            }
+            _logger = factory.CreateLogger(category);
         }
 
         /// <summary>
