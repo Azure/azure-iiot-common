@@ -126,26 +126,32 @@ namespace Serilog {
         /// <returns></returns>
         public static LoggerConfiguration ApplicationInsights(this LoggerConfiguration configuration,
             IConfiguration config = null) {
+
+            string applicationInsightsInstrumentationKey;
             if (config != null) {
-                ApplicationInsightsInstrumentationKey = config.GetValue<string>("PCS_APPINSIGHTS_INSTRUMENTATIONKEY", null);
+                applicationInsightsInstrumentationKey = config.GetValue<string>("PCS_APPINSIGHTS_INSTRUMENTATIONKEY", null);
                 configuration = configuration.ReadFrom.Configuration(config);
+            }
+            else {
+                applicationInsightsInstrumentationKey = null;
             }
             return configuration
                 .Enrich.WithProperty("SourceContext", null)
                 .Enrich.FromLogContext()
                 .WriteTo.Console(outputTemplate: kDefaultTemplate)
-                .WriteTo.ApplicationInsights(ApplicationInsightsInstrumentationKey, TelemetryConverter.Traces)
+                .WriteTo.ApplicationInsights(applicationInsightsInstrumentationKey, TelemetryConverter.Traces)
                 .MinimumLevel.ControlledBy(Level);
         }
 
         /// <summary>
         /// Create application insights logger
         /// </summary>
+         /// <param name="config"></param>
         /// <param name="level"></param>
         /// <returns></returns>
-        public static ILogger ApplicationInsights(LogEventLevel level = LogEventLevel.Debug) {
+        public static ILogger ApplicationInsights(IConfiguration config, LogEventLevel level = LogEventLevel.Debug) {
             Level.MinimumLevel = level;
-            return new LoggerConfiguration().ApplicationInsights().CreateLogger();
+            return new LoggerConfiguration().ApplicationInsights(config).CreateLogger();
         }
 
         /// <summary>
@@ -160,7 +166,5 @@ namespace Serilog {
 
         private const string kDefaultTemplate =
             "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}";
-
-        private static string ApplicationInsightsInstrumentationKey;
     }
 }
