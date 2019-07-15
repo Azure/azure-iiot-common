@@ -134,8 +134,7 @@ namespace Serilog {
                 configuration = configuration.ReadFrom.Configuration(config);
             }
             if (string.IsNullOrEmpty(applicationInsightsInstrumentationKey)) {
-                System.Console.WriteLine("Application Insights (AI) key was not found. Logs won't be sent to AI for monitoring.");
-                //throw new ArgumentNullException(nameof(applicationInsightsInstrumentationKey), "Mandatory parameter");
+                Log.Information("Application Insights (AI) key was not found. Logs won't be sent to AI for monitoring.");
             }
             return configuration
                 .Enrich.WithProperty("SourceContext", null)
