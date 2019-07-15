@@ -7,6 +7,7 @@ namespace Serilog {
     using Serilog.Events;
     using Microsoft.Extensions.Configuration;
     using Serilog.Core;
+    using System;
 
     /// <summary>
     /// Serilog extensions
@@ -127,13 +128,14 @@ namespace Serilog {
         public static LoggerConfiguration ApplicationInsights(this LoggerConfiguration configuration,
             IConfiguration config = null) {
 
-            string applicationInsightsInstrumentationKey;
+            string applicationInsightsInstrumentationKey = "";
             if (config != null) {
                 applicationInsightsInstrumentationKey = config.GetValue<string>("PCS_APPINSIGHTS_INSTRUMENTATIONKEY", null);
                 configuration = configuration.ReadFrom.Configuration(config);
             }
-            else {
-                applicationInsightsInstrumentationKey = null;
+            if (string.IsNullOrEmpty(applicationInsightsInstrumentationKey)) {
+                System.Console.WriteLine("Application Insights (AI) key was not found. Logs won't be sent to AI for monitoring.");
+                //throw new ArgumentNullException(nameof(applicationInsightsInstrumentationKey), "Mandatory parameter");
             }
             return configuration
                 .Enrich.WithProperty("SourceContext", null)
